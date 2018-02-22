@@ -1,0 +1,23 @@
+{
+  "name": "pixfarm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanrossiter/pixfarm.git"
+  },
+  "author": "Ryan Rossiter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryanrossiter/pixfarm/issues"
+  },
+  "homepage": "https://github.com/ryanrossiter/pixfarm#readme",
+  "dependencies": {
+    "phaser-ce": "^2.10.1",
+    "webpack": "^3.11.0"
+  }
+}
