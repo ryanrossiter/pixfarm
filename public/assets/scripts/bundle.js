@@ -102,6 +102,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__defs__ = __webpack_require__(9);
 
 /**
  * Import Phaser dependencies using `expose-loader`.
@@ -112,6 +113,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+
+
+const game = new __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Game(100, 100, __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.CANVAS, '', { preload, create, update });
+
+let map;
+
+function preload() {
+
+}
+
+function create() {
+	for (const spriteName in __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES) {
+		console.log(spriteName);
+		console.log(__WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES[spriteName]);
+		game.create.texture(spriteName, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES[spriteName], __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE);
+	}
+
+	game.add.sprite(0, 0, 'ground');
+	//map = game.add.tilemap(null, Defs.TILE_SIZE * Defs.PIZEL_SIZE, Defs.TILE_SIZE * Defs.PIZEL_SIZE, 10, 10);
+	//map.addTilesetImage('ground');
+}
+
+function update() {
+
+}
 
 /***/ }),
 /* 2 */
@@ -108284,6 +108311,32 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    PIXEL_SIZE: 6,
+    TILE_SIZE: 4,
+
+    PIXEL_SPRITES: {
+        'smile': [
+            '..F...F..',
+            '.........',
+            '....F....',
+            'F.......F',
+            '.FFFFFFF.',
+        ],
+        'ground': [
+            '6666',
+            '5C55',
+            '55C5',
+            'C555',
+        ]
+    }
+});
 
 /***/ })
 /******/ ]);

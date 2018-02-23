@@ -8,7 +8,7 @@ module.exports = {
    * Create your app bundle.
    */
 
-  entry: './src/index.js',
+  entry: './src/game.js',
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, 'public', 'assets', 'scripts')
@@ -23,9 +23,7 @@ module.exports = {
   devServer: {
     publicPath: '/assets/scripts/',
     contentBase: path.join(__dirname, 'public'),
-    port: 3000,
-    hot: false,
-    inline: false
+    port: 3000
   }
 
 };
