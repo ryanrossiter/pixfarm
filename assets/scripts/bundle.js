@@ -93,11 +93,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-const game = new __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Game(__WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_HEIGHT, __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.CANVAS, 'phaser-parent', { preload, create, update });
+const game = new __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Game(__WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_HEIGHT, __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.AUTO, 'phaser-parent',
+    { preload, create, update }
+);
 
 let map;
 let terrain;
 let player;
+let interactIndicator;
+let interactKey;
 
 function preload() {
 
@@ -108,17 +112,45 @@ function create() {
 
     for (const spriteName in __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES) {
         game.create.texture(spriteName, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES[spriteName], __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE);
+        if (spriteName in __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].SPRITESHEETS) {
+            let data = __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].SPRITESHEETS[spriteName];
+            game.cache.addSpriteSheet(data.key, null,
+                game.cache.getImage(spriteName),
+                data.frameWidth * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE, data.frameHeight * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE
+            );
+        }
     }
 
     terrain = new __WEBPACK_IMPORTED_MODULE_4__terrain__["a" /* default */]();
     player = new __WEBPACK_IMPORTED_MODULE_5__player__["a" /* default */](10, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_HEIGHT - __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE * 2);
+
+    interactIndicator = game.add.sprite(0, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_HEIGHT - __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE * 2 + __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE, 'interact_indicator');
+    interactIndicator.anchor.y = 1;
+    interactIndicator.alpha = 0.5;
+    interactIndicator.visible = false;
+
+    interactKey = game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Keyboard.X);
+
+    game.add.sprite(0, 0, 'test');
 }
 
 function update() {
     player.update();
+    terrain.update();
+
+    let tileFacing = player.getFacingTile();
+    if (terrain.canInteract(tileFacing)) {
+        interactIndicator.visible = true;
+        interactIndicator.position.x = tileFacing * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE;
+
+        if (interactKey.isDown) {
+            terrain.setTile(tileFacing, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].TILES.PLANT);
+        }
+    } else interactIndicator.visible = false;
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (game);
+
 
 /***/ }),
 /* 1 */
@@ -162,9 +194,25 @@ module.exports = g;
         UNDERGROUND: 0,
         GROUND: 1,
         GRASS: 2,
+        PLOT: 3,
+        PLANT: 4
+    },
+
+    SPRITESHEETS: {
+        'player_spritesheet': {
+            key: 'player',
+            frameWidth: 8,
+            frameHeight: 12
+        },
+        'TILE_PLANT_spritesheet': {
+            key: 'TILE_PLANT',
+            frameWidth: 6,
+            frameHeight: 11
+        }
     },
 
     PIXEL_SPRITES: {
+        'test': [ '0123456789................', 'abcefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' ],
         'smile': [
             '..F...F..',
             '.........',
@@ -172,10 +220,37 @@ module.exports = g;
             'F.......F',
             '.FFFFFFF.',
         ],
+        'player_spritesheet': [
+            '..DDD...' + '..DDD...',
+            '..DDDD..' + '..DDDD..',
+            '..424...' + '..424...',
+            '..4444..' + '..4444..',
+            '..466...' + '..466...',
+            '..44....' + '..44....',
+            '.EDEDE..' + '.EDEDE..',
+            '.EEDEDE.' + '.EDEEDE.',
+            '.EEDDDE.' + 'EEDDDDE.',
+            '.44DDD4.' + '44DDDD4.',
+            '..999...' + '..9999..',
+            '..000...' + '.00..00.',
+        ],
+        'interact_indicator': [
+            '2....2',
+            '222222',
+        ],
         'TILE_GROUND': [
             '666666',
             '666566',
             '555555',
+            '555555',
+            '555555',
+            '555555',
+        ],
+        'TILE_GRASS': [
+            '....B.',
+            'AABABA',
+            'AAAAAA',
+            '5A5555',
             '555555',
             '555555',
             '555555',
@@ -187,6 +262,29 @@ module.exports = g;
             'C5C5CC',
             '5CCCCC',
             'CCCCCC',
+        ],
+        'TILE_PLOT': [
+            '......',
+            '.6556.',
+            '666666',
+            '566666',
+            '556555',
+            '555555',
+            '555555',
+            '555555',
+        ],
+        'TILE_PLANT_spritesheet': [
+            '......' + '......' + '......' + '..AA..' + '..AA..',
+            '......' + '......' + '..AA..' + '.A55..' + 'A555A.',
+            '......' + '......' + '..5AA.' + '..555A' + 'A.555A',
+            '......' + '..AA..' + '..55..' + '..55..' + '..55..',
+            '.6AA6.' + '.6556.' + '.6556.' + '.6556.' + '.6556.',
+            '665566' + '665566' + '665566' + '665566' + '665566',
+            '566666' + '566666' + '566666' + '566666' + '566666',
+            '556555' + '556555' + '556555' + '556555' + '556555',
+            '555555' + '555555' + '555555' + '555555' + '555555',
+            '555555' + '555555' + '555555' + '555555' + '555555',
+            '555555' + '555555' + '555555' + '555555' + '555555',
         ]
     }
 });
@@ -108376,12 +108474,20 @@ process.umask = function() { return 0; };
 const TILE_PSIZE = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE;
 const GROUND_LEVEL = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_HEIGHT - TILE_PSIZE;
 
+const TILE_UPDATE_DELTA = 500; // every .5 seconds
+
+function getTileTextureName(tile) {
+    return 'TILE_' + Object.keys(__WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES)[tile];
+}
+
 class Terrain {
     constructor() {
         this.map = this.mapSprites = null;
         __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.tileSprite(0, GROUND_LEVEL, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_HEIGHT, 'TILE_UNDERGROUND');
     
         this.createMap(50);
+
+        this.tileUpdateTimer = TILE_UPDATE_DELTA;
     }
 
     createMap(w) {
@@ -108397,12 +108503,51 @@ class Terrain {
         this.mapSprites = [];
 
         for (var i = 0; i < w; i++) {
-            this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.GROUND;
-            this.mapSprites[i] = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(i * TILE_PSIZE, GROUND_LEVEL,
-                'TILE_' + Object.keys(__WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES)[this.map[i]]
+            this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.GRASS;
+            if (i > 5 && i % 2 == 0) this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLOT;
+            this.mapSprites[i] = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(
+                (i + 0.5) * TILE_PSIZE, GROUND_LEVEL,
+                getTileTextureName(this.map[i])
             );
 
             this.mapSprites[i].anchor.y = 1; // anchor to ground level
+            this.mapSprites[i].anchor.x = 0.5; // anchor at center of tile
+        }
+    }
+
+    getTile(t) {
+        if (typeof t !== 'number' || t < 0 || t >= this.map.length) return null;
+        return this.map[t];
+    }
+
+    setTile(t, tile) {
+        if (typeof t !== 'number' || t < 0 || t >= this.map.length) return;
+        this.map[t] = tile;
+        this.mapSprites[t].loadTexture(getTileTextureName(tile));
+    }
+
+    canInteract(t) {
+        let tile = this.getTile(t);
+        return (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLOT)
+            || (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLANT
+                && this.mapSprites[t].animations.frame === this.mapSprites[t].animations.frameTotal - 1);
+    }
+
+    update() {
+        this.tileUpdateTimer -= __WEBPACK_IMPORTED_MODULE_0__game__["default"].time.elapsedMS;
+        if (this.tileUpdateTimer <= 0) {
+            this.tileUpdateTimer = TILE_UPDATE_DELTA;
+
+            for (var i = 0; i < this.map.length; i++) {
+                if (this.map[i] === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLANT) {
+                    if (this.mapSprites[i].animations.frame < this.mapSprites[i].animations.frameTotal - 1) {
+                        // not done growing
+                        if (Math.random() < 0.15) {
+                            this.mapSprites[i].animations.frame = this.mapSprites[i].animations.frame + 1;
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -108415,25 +108560,57 @@ class Terrain {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(2);
+
 
 
 const SPEED = 2;
 
 class Player {
     constructor(x, y) {
-        this.sprite = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(x, y, 'smile');
+        this.sprite = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(x, y, 'player');
+        this.sprite.animations.add("walk");
         this.sprite.anchor.y = 1;
+        this.sprite.anchor.x = 0.5;
+
         this.cursorKeys = __WEBPACK_IMPORTED_MODULE_0__game__["default"].input.keyboard.createCursorKeys();
+        this.moving = false;
+        this.dir = true;
     }
 
     update() {
+        let moving = false;
+
         if (this.cursorKeys.left.isDown) {
             this.sprite.position.x -= SPEED;
+            moving = !moving;
+            this.dir = false;
         }
 
         if (this.cursorKeys.right.isDown) {
             this.sprite.position.x += SPEED;
+            this.sprite.scale.x = 1;
+            moving = !moving; // so if l+r are pressed moving = false
+            this.dir = true;
         }
+
+        this.sprite.scale.x = (this.dir? 1 : -1);
+
+        if (moving != this.moving) {
+            this.moving = moving;
+            if (moving) {
+                this.sprite.animations.play('walk', 3, true);
+                this.sprite.animations.currentAnim.setFrame(1);
+            } else {
+                this.sprite.animations.stop();
+                this.sprite.animations.frame = 0;
+            }
+        } 
+    }
+
+    getFacingTile() {
+        // ~~ is to floor the value
+        return ~~(this.sprite.position.x / (__WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE)) + (this.dir? 1 : -1);
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Player;

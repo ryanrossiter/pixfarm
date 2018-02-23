@@ -5,7 +5,7 @@ const SPEED = 2;
 
 export default class Player {
     constructor(x, y) {
-        this.sprite = game.add.sprite(x, y, 'player-spritesheet');
+        this.sprite = game.add.sprite(x, y, 'player');
         this.sprite.animations.add("walk");
         this.sprite.anchor.y = 1;
         this.sprite.anchor.x = 0.5;
@@ -46,6 +46,7 @@ export default class Player {
     }
 
     getFacingTile() {
+        // ~~ is to floor the value
         return ~~(this.sprite.position.x / (Defs.TILE_SIZE * Defs.PIXEL_SIZE)) + (this.dir? 1 : -1);
     }
 }
