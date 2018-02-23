@@ -26,11 +26,21 @@ export default class Terrain {
 
         for (var i = 0; i < w; i++) {
             this.map[i] = Defs.TILES.GROUND;
+            if (i > 5) this.map[i] = Defs.TILES.PLOT;
             this.mapSprites[i] = game.add.sprite(i * TILE_PSIZE, GROUND_LEVEL,
                 'TILE_' + Object.keys(Defs.TILES)[this.map[i]]
             );
 
             this.mapSprites[i].anchor.y = 1; // anchor to ground level
         }
+    }
+
+    getTile(t) {
+        if (typeof t !== 'number' || t < 0 || t >= this.map.length) return null;
+        return this.map[t];
+    }
+
+    canInteract(t) {
+        return this.getTile(t) === Defs.TILES.PLOT;
     }
 }
