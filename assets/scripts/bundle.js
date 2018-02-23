@@ -144,7 +144,7 @@ function update() {
         interactIndicator.position.x = tileFacing * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE;
 
         if (interactKey.isDown) {
-            terrain.setTile(tileFacing, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].TILES.PLANT);
+            terrain.interact(tileFacing);
         }
     } else interactIndicator.visible = false;
 }
@@ -195,7 +195,10 @@ module.exports = g;
         GROUND: 1,
         GRASS: 2,
         PLOT: 3,
-        PLANT: 4
+        PLANT: 4,
+        FENCE: 5,
+        COOP: 6,
+        COOP_EMPTY: 7
     },
 
     SPRITESHEETS: {
@@ -208,6 +211,11 @@ module.exports = g;
             key: 'TILE_PLANT',
             frameWidth: 6,
             frameHeight: 11
+        },
+        'TILE_COOP_spritesheet': {
+            key: 'TILE_COOP',
+            frameWidth: 8,
+            frameHeight: 17
         }
     },
 
@@ -255,6 +263,20 @@ module.exports = g;
             '555555',
             '555555',
         ],
+        'TILE_FENCE': [
+            '.7....',
+            '.76.7.',
+            '.7.67.',
+            '.7..7.',
+            '.76.7.',
+            '.7.67.',
+            'A7AA7A',
+            'AAAA7A',
+            '5A5555',
+            '555555',
+            '555555',
+            '555555',
+        ],
         'TILE_UNDERGROUND': [
             '555555',
             '5C5555',
@@ -285,6 +307,52 @@ module.exports = g;
             '555555' + '555555' + '555555' + '555555' + '555555',
             '555555' + '555555' + '555555' + '555555' + '555555',
             '555555' + '555555' + '555555' + '555555' + '555555',
+        ],
+        'TILE_COOP_EMPTY': [
+            '..6666..',
+            '.655556.',
+            '65555556',
+            '65555556',
+            '65555556',
+            '65555556',
+            '65555556',
+            '65555556',
+            '65555556',
+            '66777766',
+            '6.6666.6',
+            '.A7777A.',
+            '.AAAAAA.',
+            '.5A5555.',
+            '.555555.',
+            '.555555.',
+            '.555555.',
+        ],
+        'TILE_COOP_spritesheet': [
+            '..6666..' + '..6666..',
+            '.655556.' + '.655556.',
+            '65555556' + '65553556',
+            '65553556' + '65532456',
+            '65532456' + '65552286',
+            '65552286' + '62222256',
+            '62222256' + '65212256',
+            '65211156' + '65551156',
+            '65558856' + '65558856',
+            '66777766' + '66777766',
+            '6.6666.6' + '6.6666.6',
+            '.A7777A.' + '.A7777A.',
+            '.AAAAAA.' + '.AAAAAA.',
+            '.5A5555.' + '.5A5555.',
+            '.555555.' + '.555555.',
+            '.555555.' + '.555555.',
+            '.555555.' + '.555555.',
+        ],
+        'chicken': [
+            '...3.',
+            '..324.',
+            '...228',
+            '.2222.',
+            '..211.',
+            '...88.',
         ]
     }
 });
@@ -108504,7 +108572,10 @@ class Terrain {
 
         for (var i = 0; i < w; i++) {
             this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.GRASS;
-            if (i > 5 && i % 2 == 0) this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLOT;
+            if (i > 5 && i < 15 && i % 2 == 0) this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLOT;
+            else if (i === 17 || i === 25) this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.FENCE;
+            else if (i > 17 && i < 25) this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.GROUND;
+            else if ( i === 3 || i === 28) this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.COOP_EMPTY;
             this.mapSprites[i] = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(
                 (i + 0.5) * TILE_PSIZE, GROUND_LEVEL,
                 getTileTextureName(this.map[i])
@@ -108529,8 +108600,18 @@ class Terrain {
     canInteract(t) {
         let tile = this.getTile(t);
         return (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLOT)
+            || (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.COOP_EMPTY)
             || (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLANT
                 && this.mapSprites[t].animations.frame === this.mapSprites[t].animations.frameTotal - 1);
+    }
+
+    interact(t) {
+        let tile = this.getTile(t);
+        if (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLOT) {
+            this.setTile(t, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLANT);
+        } else if (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.COOP_EMPTY) {
+            this.setTile(t, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.COOP);
+        }
     }
 
     update() {
@@ -108546,6 +108627,8 @@ class Terrain {
                             this.mapSprites[i].animations.frame = this.mapSprites[i].animations.frame + 1;
                         }
                     }
+                } else if (this.map[i] === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.COOP) {
+                    this.mapSprites[i].animations.frame = this.mapSprites[i].animations.frame + 1;
                 }
             }
         }

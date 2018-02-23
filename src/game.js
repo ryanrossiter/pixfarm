@@ -64,7 +64,7 @@ function update() {
         interactIndicator.position.x = tileFacing * Defs.TILE_SIZE * Defs.PIXEL_SIZE;
 
         if (interactKey.isDown) {
-            terrain.setTile(tileFacing, Defs.TILES.PLANT);
+            terrain.interact(tileFacing);
         }
     } else interactIndicator.visible = false;
 }

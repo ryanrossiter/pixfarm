@@ -34,7 +34,10 @@ export default class Terrain {
 
         for (var i = 0; i < w; i++) {
             this.map[i] = Defs.TILES.GRASS;
-            if (i > 5 && i % 2 == 0) this.map[i] = Defs.TILES.PLOT;
+            if (i > 5 && i < 15 && i % 2 == 0) this.map[i] = Defs.TILES.PLOT;
+            else if (i === 17 || i === 25) this.map[i] = Defs.TILES.FENCE;
+            else if (i > 17 && i < 25) this.map[i] = Defs.TILES.GROUND;
+            else if ( i === 3 || i === 28) this.map[i] = Defs.TILES.COOP_EMPTY;
             this.mapSprites[i] = game.add.sprite(
                 (i + 0.5) * TILE_PSIZE, GROUND_LEVEL,
                 getTileTextureName(this.map[i])
@@ -59,8 +62,18 @@ export default class Terrain {
     canInteract(t) {
         let tile = this.getTile(t);
         return (tile === Defs.TILES.PLOT)
+            || (tile === Defs.TILES.COOP_EMPTY)
             || (tile === Defs.TILES.PLANT
                 && this.mapSprites[t].animations.frame === this.mapSprites[t].animations.frameTotal - 1);
+    }
+
+    interact(t) {
+        let tile = this.getTile(t);
+        if (tile === Defs.TILES.PLOT) {
+            this.setTile(t, Defs.TILES.PLANT);
+        } else if (tile === Defs.TILES.COOP_EMPTY) {
+            this.setTile(t, Defs.TILES.COOP);
+        }
     }
 
     update() {
@@ -76,6 +89,8 @@ export default class Terrain {
                             this.mapSprites[i].animations.frame = this.mapSprites[i].animations.frame + 1;
                         }
                     }
+                } else if (this.map[i] === Defs.TILES.COOP) {
+                    this.mapSprites[i].animations.frame = this.mapSprites[i].animations.frame + 1;
                 }
             }
         }
