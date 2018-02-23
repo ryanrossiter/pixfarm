@@ -60,11 +60,68 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__defs__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__terrain__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__player__ = __webpack_require__(11);
+
+/**
+ * Import Phaser dependencies using `expose-loader`.
+ * This makes then available globally and it's something required by Phaser.
+ * The order matters since Phaser needs them available before it is imported.
+ */
+
+
+
+
+
+
+
+
+
+const game = new __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Game(__WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_HEIGHT, __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.CANVAS, 'phaser-parent', { preload, create, update });
+
+let map;
+let terrain;
+let player;
+
+function preload() {
+
+}
+
+function create() {
+    game.stage.backgroundColor = "#90A0F5";
+
+    for (const spriteName in __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES) {
+        game.create.texture(spriteName, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES[spriteName], __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE);
+    }
+
+    terrain = new __WEBPACK_IMPORTED_MODULE_4__terrain__["a" /* default */]();
+    player = new __WEBPACK_IMPORTED_MODULE_5__player__["a" /* default */](10, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_HEIGHT - __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE * 2);
+}
+
+function update() {
+    player.update();
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (game);
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports) {
 
 var g;
@@ -91,64 +148,58 @@ module.exports = g;
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__defs__ = __webpack_require__(9);
+/* harmony default export */ __webpack_exports__["a"] = ({
+    GAME_WIDTH: window.screen.availWidth,
+    GAME_HEIGHT: 300,
+    PIXEL_SIZE: 6,
+    TILE_SIZE: 6,
 
-/**
- * Import Phaser dependencies using `expose-loader`.
- * This makes then available globally and it's something required by Phaser.
- * The order matters since Phaser needs them available before it is imported.
- */
+    TILES: {
+        UNDERGROUND: 0,
+        GROUND: 1,
+        GRASS: 2,
+    },
 
-
-
-
-
-
-
-const game = new __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Game(100, 100, __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.CANVAS, '', { preload, create, update });
-
-let map;
-
-function preload() {
-
-}
-
-function create() {
-	for (const spriteName in __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES) {
-		console.log(spriteName);
-		console.log(__WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES[spriteName]);
-		game.create.texture(spriteName, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES[spriteName], __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE);
-	}
-
-	game.add.sprite(0, 0, 'ground');
-	//map = game.add.tilemap(null, Defs.TILE_SIZE * Defs.PIZEL_SIZE, Defs.TILE_SIZE * Defs.PIZEL_SIZE, 10, 10);
-	//map.addTilesetImage('ground');
-}
-
-function update() {
-
-}
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(3);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+    PIXEL_SPRITES: {
+        'smile': [
+            '..F...F..',
+            '.........',
+            '....F....',
+            'F.......F',
+            '.FFFFFFF.',
+        ],
+        'TILE_GROUND': [
+            '666666',
+            '666566',
+            '555555',
+            '555555',
+            '555555',
+            '555555',
+        ],
+        'TILE_UNDERGROUND': [
+            '555555',
+            '5C5555',
+            '555CC5',
+            'C5C5CC',
+            '5CCCCC',
+            'CCCCCC',
+        ]
+    }
+});
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(4);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -7712,14 +7763,14 @@ PIXI.TextureUvs = function()
 }).call(this);
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(5);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(6);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var require;var require;/**
@@ -21346,14 +21397,14 @@ World.prototype.raycast = function(result, ray){
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(7);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(8);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -108120,10 +108171,10 @@ PIXI.canUseNewCanvasBlendModes = function () {
 * "What matters in this life is not what we do but what we do for others, the legacy we leave and the imprint we make." - Eric Meyer
 */
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -108313,30 +108364,80 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-    PIXEL_SIZE: 6,
-    TILE_SIZE: 4,
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(2);
 
-    PIXEL_SPRITES: {
-        'smile': [
-            '..F...F..',
-            '.........',
-            '....F....',
-            'F.......F',
-            '.FFFFFFF.',
-        ],
-        'ground': [
-            '6666',
-            '5C55',
-            '55C5',
-            'C555',
-        ]
+
+
+const TILE_PSIZE = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE;
+const GROUND_LEVEL = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_HEIGHT - TILE_PSIZE;
+
+class Terrain {
+    constructor() {
+        this.map = this.mapSprites = null;
+        __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.tileSprite(0, GROUND_LEVEL, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_HEIGHT, 'TILE_UNDERGROUND');
+    
+        this.createMap(50);
     }
-});
+
+    createMap(w) {
+        if (this.map || this.mapSprites) {
+            throw Error("Map already created");
+        }
+
+        if (typeof w !== 'number' || w <= 0) {
+            throw Error("Invalid map width: " + w);
+        }
+
+        this.map = [];
+        this.mapSprites = [];
+
+        for (var i = 0; i < w; i++) {
+            this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.GROUND;
+            this.mapSprites[i] = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(i * TILE_PSIZE, GROUND_LEVEL,
+                'TILE_' + Object.keys(__WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES)[this.map[i]]
+            );
+
+            this.mapSprites[i].anchor.y = 1; // anchor to ground level
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Terrain;
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
+
+
+const SPEED = 2;
+
+class Player {
+    constructor(x, y) {
+        this.sprite = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(x, y, 'smile');
+        this.sprite.anchor.y = 1;
+        this.cursorKeys = __WEBPACK_IMPORTED_MODULE_0__game__["default"].input.keyboard.createCursorKeys();
+    }
+
+    update() {
+        if (this.cursorKeys.left.isDown) {
+            this.sprite.position.x -= SPEED;
+        }
+
+        if (this.cursorKeys.right.isDown) {
+            this.sprite.position.x += SPEED;
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Player;
+
 
 /***/ })
 /******/ ]);

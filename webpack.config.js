@@ -11,7 +11,7 @@ module.exports = {
   entry: './src/game.js',
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, 'public', 'assets', 'scripts')
+    path: path.join(__dirname, 'assets', 'scripts')
   },
 
   /**
@@ -22,7 +22,7 @@ module.exports = {
 
   devServer: {
     publicPath: '/assets/scripts/',
-    contentBase: path.join(__dirname, 'public'),
+    contentBase: path.join(__dirname),
     port: 3000
   }
 
