@@ -75,9 +75,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__defs__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__terrain__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__player__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__preload__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__main__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__defs__ = __webpack_require__(1);
 
 /**
  * Import Phaser dependencies using `expose-loader`.
@@ -93,100 +93,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-const game = new __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Game(__WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_HEIGHT, __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.AUTO, 'phaser-parent',
-    { preload, create, update }
-);
-
-let cloudSprite;
-let map;
-let terrain;
-let player;
-let interactIndicator;
-let interactKey;
-
-function preload() {
-
-}
-
-function create() {
-    game.stage.backgroundColor = "#90A0F5";
-
-    for (const spriteName in __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES) {
-        game.create.texture(spriteName, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES[spriteName], __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE);
-        if (spriteName in __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].SPRITESHEETS) {
-            let data = __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].SPRITESHEETS[spriteName];
-            game.cache.addSpriteSheet(data.key, null,
-                game.cache.getImage(spriteName),
-                data.frameWidth * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE, data.frameHeight * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE
-            );
-        }
-    }
-
-    terrain = new __WEBPACK_IMPORTED_MODULE_4__terrain__["a" /* default */]();
-    player = new __WEBPACK_IMPORTED_MODULE_5__player__["a" /* default */](10, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_HEIGHT - __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE * 2);
-
-    interactIndicator = game.add.sprite(0, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_HEIGHT - __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE * 2 + __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE, 'interact_indicator');
-    interactIndicator.anchor.y = 1;
-    interactIndicator.alpha = 0.5;
-    interactIndicator.visible = false;
-
-    interactKey = game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Keyboard.X);
-
-    game.add.sprite(0, 0, 'test');
-    cloudSprite = game.add.tileSprite(0, 50, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES.cloud.length * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE, 'cloud');
-    cloudSprite.scale = {x:2, y:2};
-}
-
-function update() {
-    cloudSprite.tilePosition.x += 0.1;
-    cloudSprite.position.y = 50 + Math.sin(cloudSprite.tilePosition.x / 6) * 3;
-
-    player.update();
-    terrain.update();
-
-    let tileFacing = player.getFacingTile();
-    if (terrain.canInteract(tileFacing)) {
-        interactIndicator.visible = true;
-        interactIndicator.position.x = tileFacing * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE;
-
-        if (interactKey.isDown) {
-            terrain.interact(tileFacing);
-        }
-    } else interactIndicator.visible = false;
-}
+const game = new __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Game(__WEBPACK_IMPORTED_MODULE_5__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_5__defs__["a" /* default */].GAME_HEIGHT, __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.AUTO, 'phaser-parent');
+game.state.add("Preload", __WEBPACK_IMPORTED_MODULE_3__preload__["a" /* default */]);
+game.state.add("Main", __WEBPACK_IMPORTED_MODULE_4__main__["a" /* default */]);
+game.state.start("Preload");
 
 /* harmony default export */ __webpack_exports__["default"] = (game);
 
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -374,11 +290,38 @@ module.exports = g;
 });
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(4);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 4 */
@@ -7949,7 +7892,7 @@ PIXI.TextureUvs = function()
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(6);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 6 */
@@ -21583,7 +21526,7 @@ World.prototype.raycast = function(result, ray){
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(8);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 8 */
@@ -108551,7 +108494,113 @@ process.umask = function() { return 0; };
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(1);
+
+
+
+let loadPromises = [];
+/* harmony default export */ __webpack_exports__["a"] = ({
+    preload: () => {
+        for (const spriteName in __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SPRITES) {
+            loadPromises.push(new Promise((resolve) => {
+                let bmd = __WEBPACK_IMPORTED_MODULE_0__game__["default"].create.texture(spriteName, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SPRITES[spriteName], __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE, 0, false);
+                let i = new Image();
+                i.onload = () => {
+                    __WEBPACK_IMPORTED_MODULE_0__game__["default"].cache.addImage(spriteName, null, i);
+
+                    if (spriteName in __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].SPRITESHEETS) {
+                        let data = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].SPRITESHEETS[spriteName];
+                        __WEBPACK_IMPORTED_MODULE_0__game__["default"].cache.addSpriteSheet(data.key, null, i,
+                            data.frameWidth * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE, data.frameHeight * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE
+                        );
+                    }
+
+                    i.onload = null;
+                    resolve();
+                }
+
+                i.src = bmd.canvas.toDataURL("image/png");
+            }));
+        }
+
+        Promise.all(loadPromises).then(() => {
+            // switch to next state
+            __WEBPACK_IMPORTED_MODULE_0__game__["default"].state.start("Main");
+        });
+    },
+});
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__terrain__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__player__ = __webpack_require__(13);
+
+
+
+
+
+let cloudSprite;
+let map;
+let terrain;
+let player;
+let interactIndicator;
+let interactKey;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    preload: () => {
+
+    },
+
+    create: () => {
+        __WEBPACK_IMPORTED_MODULE_0__game__["default"].stage.backgroundColor = "#90A0F5";
+        
+        terrain = new __WEBPACK_IMPORTED_MODULE_2__terrain__["a" /* default */]();
+        player = new __WEBPACK_IMPORTED_MODULE_3__player__["a" /* default */](10, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_HEIGHT - __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE * 2);
+
+        interactIndicator = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(0, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_HEIGHT - __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE * 2 + __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE, 'interact_indicator');
+        interactIndicator.anchor.y = 1;
+        interactIndicator.alpha = 0.5;
+        interactIndicator.visible = false;
+
+        interactKey = __WEBPACK_IMPORTED_MODULE_0__game__["default"].input.keyboard.addKey(Phaser.Keyboard.X);
+
+        __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(0, 0, 'test');
+        cloudSprite = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.tileSprite(0, 50, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SPRITES.cloud.length * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE, 'cloud');
+        cloudSprite.scale = {x:2, y:2};
+    },
+
+    update: () => {
+        cloudSprite.tilePosition.x += 0.1;
+        cloudSprite.position.y = 50 + Math.sin(cloudSprite.tilePosition.x / 6) * 3;
+
+        player.update();
+        terrain.update();
+
+        let tileFacing = player.getFacingTile();
+        if (terrain.canInteract(tileFacing)) {
+            interactIndicator.visible = true;
+            interactIndicator.position.x = tileFacing * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE;
+
+            if (interactKey.isDown) {
+                terrain.interact(tileFacing);
+            }
+        } else interactIndicator.visible = false;
+    }
+});
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(1);
 
 
 
@@ -108571,7 +108620,7 @@ class Terrain {
     
         this.createMap(50);
 
-        this.tileUpdateTimer = TILE_UPDATE_DELTA;
+        this.tileUpdateTimer = 0;
     }
 
     createMap(w) {
@@ -108654,12 +108703,12 @@ class Terrain {
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(1);
 
 
 

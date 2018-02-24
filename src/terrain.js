@@ -17,7 +17,7 @@ export default class Terrain {
     
         this.createMap(50);
 
-        this.tileUpdateTimer = TILE_UPDATE_DELTA;
+        this.tileUpdateTimer = 0;
     }
 
     createMap(w) {
