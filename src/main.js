@@ -1,7 +1,10 @@
 import game from './game';
+import State from './state';
 import Defs from './defs';
 import Terrain from './terrain';
 import Player from './player';
+
+const INTERACT_DELAY = 200;
 
 let cloudSprite;
 let map;
@@ -9,6 +12,7 @@ let terrain;
 let player;
 let interactIndicator;
 let interactKey;
+let interactTimer = 0;
 
 export default {
     preload: () => {
@@ -16,8 +20,12 @@ export default {
     },
 
     create: () => {
-        game.stage.backgroundColor = "#90A0F5";
+        State.reset();
         
+        game.stage.backgroundColor = "#90A0F5";
+        cloudSprite = game.add.tileSprite(0, 50, Defs.GAME_WIDTH, Defs.PIXEL_SPRITES.cloud.length * Defs.PIXEL_SIZE, 'cloud');
+        cloudSprite.scale = {x:2, y:2};
+
         terrain = new Terrain();
         player = new Player(10, Defs.GAME_HEIGHT - Defs.TILE_SIZE * Defs.PIXEL_SIZE * 2);
 
@@ -29,8 +37,6 @@ export default {
         interactKey = game.input.keyboard.addKey(Phaser.Keyboard.X);
 
         game.add.sprite(0, 0, 'test');
-        cloudSprite = game.add.tileSprite(0, 50, Defs.GAME_WIDTH, Defs.PIXEL_SPRITES.cloud.length * Defs.PIXEL_SIZE, 'cloud');
-        cloudSprite.scale = {x:2, y:2};
     },
 
     update: () => {
@@ -45,9 +51,12 @@ export default {
             interactIndicator.visible = true;
             interactIndicator.position.x = tileFacing * Defs.TILE_SIZE * Defs.PIXEL_SIZE;
 
-            if (interactKey.isDown) {
+            if (interactKey.isDown && interactTimer <= 0) {
                 terrain.interact(tileFacing);
+                interactTimer = INTERACT_DELAY;
             }
         } else interactIndicator.visible = false;
+
+        if (interactTimer > 0) interactTimer -= game.time.elapsedMS;
     }
 }
