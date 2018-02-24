@@ -124,6 +124,13 @@
             '888',
             '.8.',
         ],
+        'coin_big': [
+            '.888.',
+            '88888',
+            '88888',
+            '78887',
+            '.777.',
+        ],
         'cloud': [
             '............................................',
             '...2...22...................................',
@@ -108666,6 +108673,10 @@ let cloudSprite;
 let map;
 let terrain;
 let player;
+
+let coinSprite;
+let coinText;
+
 let interactIndicator;
 let interactKey;
 let interactTimer = 0;
@@ -108692,12 +108703,25 @@ let interactTimer = 0;
 
         interactKey = __WEBPACK_IMPORTED_MODULE_0__game__["default"].input.keyboard.addKey(Phaser.Keyboard.X);
 
+        coinSprite = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(15, __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].GAME_HEIGHT - 15, 'coin_big');
+        coinSprite.anchor.y = 1;
+
+        coinText = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.text(54, __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].GAME_HEIGHT - 8, __WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].coins, {
+            "font": "Courier New",
+            fill: "#FFF",
+            fontSize: "32px",
+            fontWeight: "bold"
+        });
+        coinText.anchor.y = 1;
+
         __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(0, 0, 'test');
     },
 
     update: () => {
         cloudSprite.tilePosition.x += 0.1;
         cloudSprite.position.y = 50 + Math.sin(cloudSprite.tilePosition.x / 6) * 3;
+
+        coinText.text = __WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].coins;
 
         player.update();
         terrain.update();
@@ -108740,7 +108764,7 @@ class Terrain {
         this.tiles = null;
         __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.tileSprite(0, GROUND_LEVEL, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_HEIGHT, 'TILE_UNDERGROUND');
     
-        this.createMap(50);
+        this.createMap(~~(__WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_WIDTH / TILE_PSIZE) + 1);
 
         this.tileUpdateTimer = 0;
     }

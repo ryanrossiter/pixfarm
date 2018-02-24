@@ -10,6 +10,10 @@ let cloudSprite;
 let map;
 let terrain;
 let player;
+
+let coinSprite;
+let coinText;
+
 let interactIndicator;
 let interactKey;
 let interactTimer = 0;
@@ -36,12 +40,25 @@ export default {
 
         interactKey = game.input.keyboard.addKey(Phaser.Keyboard.X);
 
+        coinSprite = game.add.sprite(15, Defs.GAME_HEIGHT - 15, 'coin_big');
+        coinSprite.anchor.y = 1;
+
+        coinText = game.add.text(54, Defs.GAME_HEIGHT - 8, State.coins, {
+            "font": "Courier New",
+            fill: "#FFF",
+            fontSize: "32px",
+            fontWeight: "bold"
+        });
+        coinText.anchor.y = 1;
+
         game.add.sprite(0, 0, 'test');
     },
 
     update: () => {
         cloudSprite.tilePosition.x += 0.1;
         cloudSprite.position.y = 50 + Math.sin(cloudSprite.tilePosition.x / 6) * 3;
+
+        coinText.text = State.coins;
 
         player.update();
         terrain.update();

@@ -13,7 +13,7 @@ export default class Terrain {
         this.tiles = null;
         game.add.tileSprite(0, GROUND_LEVEL, Defs.GAME_WIDTH, Defs.GAME_HEIGHT, 'TILE_UNDERGROUND');
     
-        this.createMap(50);
+        this.createMap(~~(Defs.GAME_WIDTH / TILE_PSIZE) + 1);
 
         this.tileUpdateTimer = 0;
     }
