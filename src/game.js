@@ -17,6 +17,7 @@ const game = new Phaser.Game(Defs.GAME_WIDTH, Defs.GAME_HEIGHT, Phaser.AUTO, 'ph
     { preload, create, update }
 );
 
+let cloudSprite;
 let map;
 let terrain;
 let player;
@@ -52,9 +53,14 @@ function create() {
     interactKey = game.input.keyboard.addKey(Phaser.Keyboard.X);
 
     game.add.sprite(0, 0, 'test');
+    cloudSprite = game.add.tileSprite(0, 50, Defs.GAME_WIDTH, Defs.PIXEL_SPRITES.cloud.length * Defs.PIXEL_SIZE, 'cloud');
+    cloudSprite.scale = {x:2, y:2};
 }
 
 function update() {
+    cloudSprite.tilePosition.x += 0.1;
+    cloudSprite.position.y = 50 + Math.sin(cloudSprite.tilePosition.x / 6) * 3;
+
     player.update();
     terrain.update();
 

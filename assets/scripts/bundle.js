@@ -97,6 +97,7 @@ const game = new __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_buil
     { preload, create, update }
 );
 
+let cloudSprite;
 let map;
 let terrain;
 let player;
@@ -132,9 +133,14 @@ function create() {
     interactKey = game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Keyboard.X);
 
     game.add.sprite(0, 0, 'test');
+    cloudSprite = game.add.tileSprite(0, 50, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SPRITES.cloud.length * __WEBPACK_IMPORTED_MODULE_3__defs__["a" /* default */].PIXEL_SIZE, 'cloud');
+    cloudSprite.scale = {x:2, y:2};
 }
 
 function update() {
+    cloudSprite.tilePosition.x += 0.1;
+    cloudSprite.position.y = 50 + Math.sin(cloudSprite.tilePosition.x / 6) * 3;
+
     player.update();
     terrain.update();
 
@@ -227,6 +233,16 @@ module.exports = g;
             '....F....',
             'F.......F',
             '.FFFFFFF.',
+        ],
+        'cloud': [
+            '............................................',
+            '...2...22...................................',
+            '.22222222222................................',
+            '..22222222222...............................',
+            '...22..2222.................22..............',
+            '..........................222222............',
+            '............................2222............',
+            '............................................',
         ],
         'player_spritesheet': [
             '..DDD...' + '..DDD...',
