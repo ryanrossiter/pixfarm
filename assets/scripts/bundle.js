@@ -60,49 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__preload__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__main__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__defs__ = __webpack_require__(1);
-
-/**
- * Import Phaser dependencies using `expose-loader`.
- * This makes then available globally and it's something required by Phaser.
- * The order matters since Phaser needs them available before it is imported.
- */
-
-
-
-
-
-
-
-
-
-const game = new __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Game(__WEBPACK_IMPORTED_MODULE_5__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_5__defs__["a" /* default */].GAME_HEIGHT, __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.AUTO, 'phaser-parent');
-game.state.add("Preload", __WEBPACK_IMPORTED_MODULE_3__preload__["a" /* default */]);
-game.state.add("Main", __WEBPACK_IMPORTED_MODULE_4__main__["a" /* default */]);
-game.state.start("Preload");
-
-/* harmony default export */ __webpack_exports__["default"] = (game);
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -120,7 +82,9 @@ game.state.start("Preload");
         PLANT: 4,
         FENCE: 5,
         COOP: 6,
-        COOP_EMPTY: 7
+        COOP_EMPTY: 7,
+        HOUSE: 8,
+        MAILBOX: 9,
     },
 
     SPRITESHEETS: {
@@ -131,13 +95,18 @@ game.state.start("Preload");
         },
         'TILE_PLANT_spritesheet': {
             key: 'TILE_PLANT',
-            frameWidth: 6,
-            frameHeight: 11
+            frameWidth: 8,
+            frameHeight: 13
         },
         'TILE_COOP_spritesheet': {
             key: 'TILE_COOP',
             frameWidth: 8,
             frameHeight: 17
+        },
+        'TILE_MAILBOX_spritesheet': {
+            key: 'TILE_MAILBOX',
+            frameWidth: 8,
+            frameHeight: 13
         }
     },
 
@@ -149,6 +118,11 @@ game.state.start("Preload");
             '....F....',
             'F.......F',
             '.FFFFFFF.',
+        ],
+        'coin': [
+            '.8.',
+            '888',
+            '.8.',
         ],
         'cloud': [
             '............................................',
@@ -195,6 +169,52 @@ game.state.start("Preload");
             '555555',
             '555555',
         ],
+        'TILE_HOUSE': [
+            '.......5555.......',
+            '......555555......',
+            '.....55555555.....',
+            '....5555555555....',
+            '...555555555555...',
+            '..55555555555555..',
+            '.5555555555555555.',
+            '555555555555555555',
+            '555555555555555555',
+            '..33333333333333..',
+            '..33333333333333..',
+            '..33331111113333..',
+            '..33331111113333..',
+            '..33331111113333..',
+            '..33331111113333..',
+            '..33331111113333..',
+            '..33331111013333..',
+            '..33331111113333..',
+            '..33331111113333..',
+            '..33331111113333..',
+            '..33331111113333..',
+            '..33331111113333..',
+            '..33331111113333..',
+            '......AAAAAA......',
+            '......AAAAAA......',
+            '......5AA555......',
+            '......555555......',
+            '......555555......',
+            '......555555......',
+        ],
+        'TILE_MAILBOX_spritesheet': [
+            '........' + '....3...',
+            '..11119.' + '..11319.',
+            '.1333199' + '.1113199',
+            '.1111199' + '.1111199',
+            '...65...' + '...65...',
+            '...65...' + '...65...',
+            '...65...' + '...65...',
+            '.AA65AA.' + '.AA65AA.',
+            '.AAAAAA.' + '.AAAAAA.',
+            '.5A5555.' + '.5A5555.',
+            '.555555.' + '.555555.',
+            '.555555.' + '.555555.',
+            '.555555.' + '.555555.',
+        ],
         'TILE_FENCE': [
             '.7....',
             '.76.7.',
@@ -228,17 +248,19 @@ game.state.start("Preload");
             '555555',
         ],
         'TILE_PLANT_spritesheet': [
-            '......' + '......' + '......' + '..AA..' + '..AA..',
-            '......' + '......' + '..AA..' + '.A55..' + 'A555A.',
-            '......' + '......' + '..5AA.' + '..555A' + 'A.555A',
-            '......' + '..AA..' + '..55..' + '..55..' + '..55..',
-            '.6AA6.' + '.6556.' + '.6556.' + '.6556.' + '.6556.',
-            '665566' + '665566' + '665566' + '665566' + '665566',
-            '566666' + '566666' + '566666' + '566666' + '566666',
-            '556555' + '556555' + '556555' + '556555' + '556555',
-            '555555' + '555555' + '555555' + '555555' + '555555',
-            '555555' + '555555' + '555555' + '555555' + '555555',
-            '555555' + '555555' + '555555' + '555555' + '555555',
+            '........' + '........' + '........' + '........' + '........' + '...AA.5A',
+            '........' + '........' + '........' + '........' + '...AA...' + '.A.5558A',
+            '........' + '........' + '........' + '...AA...' + 'A5.555A.' + 'A5.55888',
+            '........' + '........' + '...AA...' + '..A555A.' + '.A555.8.' + '.8555.8.',
+            '........' + '........' + '...5AA..' + '...55...' + '.8.55...' + '88855...',
+            '........' + '...AA...' + '...55...' + '...55...' + '...55...' + '.8.55...',
+            '..6AA6..' + '..6556..' + '..6556..' + '..6556..' + '..6556..' + '..6556..',
+            '.665566.' + '.665566.' + '.665566.' + '.665566.' + '.665566.' + '.665566.',
+            '.566666.' + '.566666.' + '.566666.' + '.566666.' + '.566666.' + '.566666.',
+            '.556555.' + '.556555.' + '.556555.' + '.556555.' + '.556555.' + '.556555.',
+            '.555555.' + '.555555.' + '.555555.' + '.555555.' + '.555555.' + '.555555.',
+            '.555555.' + '.555555.' + '.555555.' + '.555555.' + '.555555.' + '.555555.',
+            '.555555.' + '.555555.' + '.555555.' + '.555555.' + '.555555.' + '.555555.',
         ],
         'TILE_COOP_EMPTY': [
             '..6666..',
@@ -290,7 +312,81 @@ game.state.start("Preload");
 });
 
 /***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_expose_loader_PIXI_phaser_ce_build_custom_pixi_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_expose_loader_p2_phaser_ce_build_custom_p2_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__preload__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__main__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__defs__ = __webpack_require__(0);
+
+/**
+ * Import Phaser dependencies using `expose-loader`.
+ * This makes then available globally and it's something required by Phaser.
+ * The order matters since Phaser needs them available before it is imported.
+ */
+
+
+
+
+
+
+
+
+
+const game = new __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.Game(__WEBPACK_IMPORTED_MODULE_5__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_5__defs__["a" /* default */].GAME_HEIGHT, __WEBPACK_IMPORTED_MODULE_2_expose_loader_Phaser_phaser_ce_build_custom_phaser_split_js___default.a.AUTO, 'phaser-parent');
+game.state.add("Preload", __WEBPACK_IMPORTED_MODULE_3__preload__["a" /* default */]);
+game.state.add("Main", __WEBPACK_IMPORTED_MODULE_4__main__["a" /* default */]);
+game.state.start("Preload");
+
+/* harmony default export */ __webpack_exports__["default"] = (game);
+
+
+/***/ }),
 /* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__defs__ = __webpack_require__(0);
+
+
+function getTileTextureName(tile) {
+    return 'TILE_' + Object.keys(__WEBPACK_IMPORTED_MODULE_0__defs__["a" /* default */].TILES)[tile];
+}
+
+class Tile {
+	constructor(tile, sprite) {
+		this.tile = tile;
+
+		this.sprite = sprite;
+		this.sprite.loadTexture(getTileTextureName(tile));
+		this.sprite.scale.x = 1; // reset scale in case it was previously changed
+	}
+
+	canInteract() {
+		return false;
+	}
+
+	interact(terrain) {
+
+	}
+
+	update() {
+
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Tile;
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 var g;
@@ -317,14 +413,31 @@ module.exports = g;
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(4);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+"use strict";
+const State = {
+	coins: 0,
+	mailQueue: [],
+
+	reset: function() {
+		this.coins = 0;
+		this.mailQueue = [];
+	}
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (State);
 
 /***/ }),
-/* 4 */
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(6);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -7888,14 +8001,14 @@ PIXI.TextureUvs = function()
 }).call(this);
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(6);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(8);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var require;var require;/**
@@ -21522,14 +21635,14 @@ World.prototype.raycast = function(result, ray){
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(8);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(10);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -108296,10 +108409,10 @@ PIXI.canUseNewCanvasBlendModes = function () {
 * "What matters in this life is not what we do but what we do for others, the legacy we leave and the imprint we make." - Eric Meyer
 */
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -108489,12 +108602,12 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(0);
 
 
 
@@ -108532,18 +108645,22 @@ let loadPromises = [];
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__terrain__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__player__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__state__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__defs__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__terrain__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__player__ = __webpack_require__(21);
 
 
 
 
+
+
+const INTERACT_DELAY = 200;
 
 let cloudSprite;
 let map;
@@ -108551,6 +108668,7 @@ let terrain;
 let player;
 let interactIndicator;
 let interactKey;
+let interactTimer = 0;
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     preload: () => {
@@ -108558,12 +108676,16 @@ let interactKey;
     },
 
     create: () => {
-        __WEBPACK_IMPORTED_MODULE_0__game__["default"].stage.backgroundColor = "#90A0F5";
+        __WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].reset();
         
-        terrain = new __WEBPACK_IMPORTED_MODULE_2__terrain__["a" /* default */]();
-        player = new __WEBPACK_IMPORTED_MODULE_3__player__["a" /* default */](10, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_HEIGHT - __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE * 2);
+        __WEBPACK_IMPORTED_MODULE_0__game__["default"].stage.backgroundColor = "#90A0F5";
+        cloudSprite = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.tileSprite(0, 50, __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].PIXEL_SPRITES.cloud.length * __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].PIXEL_SIZE, 'cloud');
+        cloudSprite.scale = {x:2, y:2};
 
-        interactIndicator = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(0, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_HEIGHT - __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE * 2 + __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE, 'interact_indicator');
+        terrain = new __WEBPACK_IMPORTED_MODULE_3__terrain__["a" /* default */]();
+        player = new __WEBPACK_IMPORTED_MODULE_4__player__["a" /* default */](10, __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].GAME_HEIGHT - __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].PIXEL_SIZE * 2);
+
+        interactIndicator = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(0, __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].GAME_HEIGHT - __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].PIXEL_SIZE * 2 + __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].PIXEL_SIZE, 'interact_indicator');
         interactIndicator.anchor.y = 1;
         interactIndicator.alpha = 0.5;
         interactIndicator.visible = false;
@@ -108571,8 +108693,6 @@ let interactKey;
         interactKey = __WEBPACK_IMPORTED_MODULE_0__game__["default"].input.keyboard.addKey(Phaser.Keyboard.X);
 
         __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(0, 0, 'test');
-        cloudSprite = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.tileSprite(0, 50, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SPRITES.cloud.length * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE, 'cloud');
-        cloudSprite.scale = {x:2, y:2};
     },
 
     update: () => {
@@ -108585,22 +108705,28 @@ let interactKey;
         let tileFacing = player.getFacingTile();
         if (terrain.canInteract(tileFacing)) {
             interactIndicator.visible = true;
-            interactIndicator.position.x = tileFacing * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE;
+            interactIndicator.position.x = tileFacing * __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].TILE_SIZE * __WEBPACK_IMPORTED_MODULE_2__defs__["a" /* default */].PIXEL_SIZE;
 
-            if (interactKey.isDown) {
+            if (interactKey.isDown && interactTimer <= 0) {
                 terrain.interact(tileFacing);
+                interactTimer = INTERACT_DELAY;
             }
         } else interactIndicator.visible = false;
+
+        if (interactTimer > 0) interactTimer -= __WEBPACK_IMPORTED_MODULE_0__game__["default"].time.elapsedMS;
     }
 });
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tiles_tilefactory__ = __webpack_require__(15);
+
+
 
 
 
@@ -108609,13 +108735,9 @@ const GROUND_LEVEL = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME
 
 const TILE_UPDATE_DELTA = 500; // every .5 seconds
 
-function getTileTextureName(tile) {
-    return 'TILE_' + Object.keys(__WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES)[tile];
-}
-
 class Terrain {
     constructor() {
-        this.map = this.mapSprites = null;
+        this.tiles = null;
         __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.tileSprite(0, GROUND_LEVEL, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_WIDTH, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].GAME_HEIGHT, 'TILE_UNDERGROUND');
     
         this.createMap(50);
@@ -108624,7 +108746,7 @@ class Terrain {
     }
 
     createMap(w) {
-        if (this.map || this.mapSprites) {
+        if (this.tiles) {
             throw Error("Map already created");
         }
 
@@ -108632,50 +108754,46 @@ class Terrain {
             throw Error("Invalid map width: " + w);
         }
 
-        this.map = [];
-        this.mapSprites = [];
+        this.tiles = [];
 
         for (var i = 0; i < w; i++) {
-            this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.GRASS;
-            if (i > 5 && i < 15 && i % 2 == 0) this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLOT;
-            else if (i === 17 || i === 25) this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.FENCE;
-            else if (i > 17 && i < 25) this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.GROUND;
-            else if ( i === 3 || i === 28) this.map[i] = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.COOP_EMPTY;
-            this.mapSprites[i] = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(
-                (i + 0.5) * TILE_PSIZE, GROUND_LEVEL,
-                getTileTextureName(this.map[i])
-            );
+            let tile = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.GRASS;
+            if (i > 8 && i < 15 && i % 2 == 0) tile = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLOT;
+            else if (i === 17 || i === 25) tile = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.FENCE;
+            else if (i > 17 && i < 25) tile = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.GROUND;
+            else if (i === 28 || i === 7) tile = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.COOP_EMPTY;
+            else if (i === 3) tile = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.HOUSE;
+            else if (i === 5) tile = __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.MAILBOX;
 
-            this.mapSprites[i].anchor.y = 1; // anchor to ground level
-            this.mapSprites[i].anchor.x = 0.5; // anchor at center of tile
+            let sprite = __WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite((i + 0.5) * TILE_PSIZE, GROUND_LEVEL);
+            sprite.anchor.y = 1; // anchor to ground level
+            sprite.anchor.x = 0.5; // anchor at center of tile
+
+            this.tiles[i] = __WEBPACK_IMPORTED_MODULE_2__tiles_tilefactory__["a" /* default */].CreateTile(tile, sprite);
         }
     }
 
     getTile(t) {
-        if (typeof t !== 'number' || t < 0 || t >= this.map.length) return null;
-        return this.map[t];
+        if (typeof t !== 'number' || t < 0 || t >= this.tiles.length) return null;
+        return this.tiles[t];
     }
 
     setTile(t, tile) {
-        if (typeof t !== 'number' || t < 0 || t >= this.map.length) return;
-        this.map[t] = tile;
-        this.mapSprites[t].loadTexture(getTileTextureName(tile));
+        if (typeof t !== 'number' || t < 0 || t >= this.tiles.length) return;
+        this.tiles[t] = __WEBPACK_IMPORTED_MODULE_2__tiles_tilefactory__["a" /* default */].CreateTile(tile, this.tiles[t].sprite);
     }
 
     canInteract(t) {
         let tile = this.getTile(t);
-        return (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLOT)
-            || (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.COOP_EMPTY)
-            || (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLANT
-                && this.mapSprites[t].animations.frame === this.mapSprites[t].animations.frameTotal - 1);
+        return (tile? tile.canInteract() : false);
     }
 
     interact(t) {
         let tile = this.getTile(t);
-        if (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLOT) {
-            this.setTile(t, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLANT);
-        } else if (tile === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.COOP_EMPTY) {
-            this.setTile(t, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.COOP);
+        if (tile) {
+            tile.interact((tile) => { // pass a function to replace the tile
+                this.setTile(t, tile);
+            });
         }
     }
 
@@ -108684,17 +108802,8 @@ class Terrain {
         if (this.tileUpdateTimer <= 0) {
             this.tileUpdateTimer = TILE_UPDATE_DELTA;
 
-            for (var i = 0; i < this.map.length; i++) {
-                if (this.map[i] === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.PLANT) {
-                    if (this.mapSprites[i].animations.frame < this.mapSprites[i].animations.frameTotal - 1) {
-                        // not done growing
-                        if (Math.random() < 0.15) {
-                            this.mapSprites[i].animations.frame = this.mapSprites[i].animations.frame + 1;
-                        }
-                    }
-                } else if (this.map[i] === __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].TILES.COOP) {
-                    this.mapSprites[i].animations.frame = this.mapSprites[i].animations.frame + 1;
-                }
+            for (var i = 0; i < this.tiles.length; i++) {
+                this.tiles[i].update();
             }
         }
     }
@@ -108703,12 +108812,246 @@ class Terrain {
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__defs__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tile__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__plot__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plant__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__coop__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mailbox__ = __webpack_require__(19);
+
+
+
+
+
+
+
+
+const TileFactory = {
+    tiles: {},
+
+    RegisterTile: function (tile, klass) {
+        if (tile in this.tiles) {
+            throw Error("Tile " + tile + " already registered.");
+        }
+
+        this.tiles[tile] = klass;
+    },
+
+    CreateTile: function (tile, sprite) {
+        if (tile in this.tiles) {
+            return new this.tiles[tile](tile, sprite);
+        } else {
+            return new __WEBPACK_IMPORTED_MODULE_1__tile__["a" /* default */](tile, sprite);
+        }
+    }
+}
+
+TileFactory.RegisterTile(__WEBPACK_IMPORTED_MODULE_0__defs__["a" /* default */].TILES.PLOT, __WEBPACK_IMPORTED_MODULE_2__plot__["a" /* default */]);
+TileFactory.RegisterTile(__WEBPACK_IMPORTED_MODULE_0__defs__["a" /* default */].TILES.PLANT, __WEBPACK_IMPORTED_MODULE_3__plant__["a" /* default */]);
+TileFactory.RegisterTile(__WEBPACK_IMPORTED_MODULE_0__defs__["a" /* default */].TILES.COOP_EMPTY, __WEBPACK_IMPORTED_MODULE_4__coop__["a" /* default */]);
+TileFactory.RegisterTile(__WEBPACK_IMPORTED_MODULE_0__defs__["a" /* default */].TILES.COOP, __WEBPACK_IMPORTED_MODULE_4__coop__["a" /* default */]);
+TileFactory.RegisterTile(__WEBPACK_IMPORTED_MODULE_0__defs__["a" /* default */].TILES.MAILBOX, __WEBPACK_IMPORTED_MODULE_5__mailbox__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (TileFactory);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__defs__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tile__ = __webpack_require__(2);
+
+
+
+class Plot extends __WEBPACK_IMPORTED_MODULE_1__tile__["a" /* default */] {
+	canInteract() {
+		return true;
+	}
+
+	interact(replaceTile) {
+		replaceTile(__WEBPACK_IMPORTED_MODULE_0__defs__["a" /* default */].TILES.PLANT);
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Plot;
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__defs__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tile__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__game__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__state__ = __webpack_require__(4);
+
+
+
+
+
+class Plant extends __WEBPACK_IMPORTED_MODULE_1__tile__["a" /* default */] {
+	constructor(tile, sprite) {
+		super(tile, sprite);
+		this.sprite.scale.x = (Math.random() < 0.5? 1 : -1);
+	}
+
+	isDoneGrowing() {
+		return this.sprite.animations.frame === this.sprite.animations.frameTotal - 1;
+	}
+
+	canInteract() {
+		return this.isDoneGrowing();
+	}
+
+	interact(replaceTile) {
+		if (this.isDoneGrowing()) {
+			let coin1 = __WEBPACK_IMPORTED_MODULE_2__game__["default"].add.sprite(this.sprite.x - 16 * this.sprite.scale.x, this.sprite.y - 64, 'coin');
+			let coin2 = __WEBPACK_IMPORTED_MODULE_2__game__["default"].add.sprite(this.sprite.x + 16 * this.sprite.scale.x, this.sprite.y - 73, 'coin');
+			coin1.anchor.x = coin2.anchor.x = 0.5;
+
+			__WEBPACK_IMPORTED_MODULE_2__game__["default"].add.tween(coin1).to({ y: '-50', alpha: 0 }, 500, "Linear", true);
+			__WEBPACK_IMPORTED_MODULE_2__game__["default"].add.tween(coin2).to({ y: '-50', alpha: 0 }, 500, "Linear", true);
+			__WEBPACK_IMPORTED_MODULE_3__state__["a" /* default */].coins += 2;
+			
+			replaceTile(__WEBPACK_IMPORTED_MODULE_0__defs__["a" /* default */].TILES.PLOT);
+		}
+	}
+
+	update() {
+		if (this.isDoneGrowing() === false) {
+            if (Math.random() < 0.15) {
+                this.sprite.animations.frame = this.sprite.animations.frame + 1;
+            }
+        }
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Plant;
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__defs__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tile__ = __webpack_require__(2);
+
+
+
+class Coop extends __WEBPACK_IMPORTED_MODULE_1__tile__["a" /* default */] {
+	constructor(tile, sprite) {
+		super(tile, sprite);
+
+		this.empty = tile === __WEBPACK_IMPORTED_MODULE_0__defs__["a" /* default */].TILES.COOP_EMPTY;
+	}
+
+	canInteract() {
+		return this.empty;
+	}
+
+	interact(replaceTile) {
+		if (this.empty) replaceTile(__WEBPACK_IMPORTED_MODULE_0__defs__["a" /* default */].TILES.COOP);
+	}
+
+	update() {
+		if (this.empty === false) {
+			this.sprite.animations.frame = this.sprite.animations.frame + 1;
+
+			if (Math.random() < 0.1) this.sprite.scale.x *= -1; // randomly switch direction
+		}
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Coop;
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__defs__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__state__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tile__ = __webpack_require__(2);
+
+
+
+
+
+
+
+class Mailbox extends __WEBPACK_IMPORTED_MODULE_4__tile__["a" /* default */] {
+	constructor(tile, sprite) {
+		super(tile, sprite);
+	}
+
+	get hasMail() {
+		return __WEBPACK_IMPORTED_MODULE_3__state__["a" /* default */].mailQueue.length > 0;
+	}
+
+	canInteract() {
+		return this.hasMail;
+	}
+
+	interact(replaceTile) {
+		this.hasMail = !this.hasMail;
+		__WEBPACK_IMPORTED_MODULE_0__game__["default"].add.sprite(this.sprite.x, 30, __WEBPACK_IMPORTED_MODULE_1__utils__["a" /* default */].CreateDialog(35, 15)).anchor.x = 0.5;
+	}
+
+	update() {
+		let frame = (this.hasMail? 1: 0);
+		if (frame !== this.sprite.animations.frame) {
+			this.sprite.animations.frame = frame;
+		}
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Mailbox;
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(0);
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+	CreateDialog: (w, h, r) => {
+		r = r || 2;
+		let dialog = [];
+		for (var y = 0; y < h; y++) {
+			let line = '';
+			for (var x = 0; x < w; x++) {
+				if (x + y < r || w-1 - x + y < r || x + h-1 - y < r || w-1 - x + h-1 - y < r)
+					line += '.';
+				else if (x == 0 || y == 0 || x == w-1 || y == h-1
+					|| x + y == r || w-1 - x + y == r || x + h-1 - y == r || w-1 - x + h-1 - y == r)
+					line += '0';
+				else line += '8'; 
+			}
+			dialog.push(line);
+		}
+
+		return __WEBPACK_IMPORTED_MODULE_0__game__["default"].create.texture(null, dialog, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE, __WEBPACK_IMPORTED_MODULE_1__defs__["a" /* default */].PIXEL_SIZE, 0, false);
+	}
+});
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defs__ = __webpack_require__(0);
 
 
 
